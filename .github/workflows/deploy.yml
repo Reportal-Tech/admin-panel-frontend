@@ -23,7 +23,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        file: ./Dockerfile # Adjust path if needed
+        file: ./docker/Dockerfile # Adjust path if needed
         push: true
         tags: reportal/admin-panel-frontend:latest # Update with your image name
 
