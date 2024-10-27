@@ -15,14 +15,23 @@ jobs:
     - name: Create .env file
       run: echo "SERVER_HOST_URL=${{ secrets.SERVER_HOST_URL }}" >> .env && echo "SITE_URL=${{ secrets.SITE_URL }}" >> .env
 
-    - name: Build docker image
-      run: docker build -t reportal/admin-panel-frontend .
-
     - name: Login to docker hub
       run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
+    - name: Build docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./docker/Dockerfile # Adjust if Dockerfile is in the root directory
+        push: true
+        tags: reportal/admin-panel-frontend #Replace with your Docker Hub username and repository
+
+
     - name: Publish image to docker hub
       run: docker push reportal/admin-panel-frontend:latest
+
+    - name: Verify Pushed Image
+      run: docker pull reportal/admin-panel-frontend:latest
 
   # deploy:
   #   needs: build
