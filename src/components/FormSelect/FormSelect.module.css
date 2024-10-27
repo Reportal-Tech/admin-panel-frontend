@@ -1,0 +1,106 @@
+.form__select {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.4rem;
+  position: relative;
+}
+
+.form__select > p {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--c-primaryShade);
+  text-align: left;
+}
+
+.placeholder__clr {
+  color: #232323A0;
+}
+
+.select__top {
+  width: 100%;
+  padding: 0.48rem 0.7rem;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  border: 1.2px solid transparent;
+  box-shadow: 0 0 1px 0.8px #23232330;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.select__top p {
+  font-size: 0.8rem;
+  text-align: left;
+  color: var(--c-primaryShade);
+  font-weight: 400;
+}
+
+.select__options {
+  width: 100%;
+  max-width: 100%;
+  position: absolute;
+  top: 70px;
+  height: 164px;
+  background-color: var(--c-white);
+  border: 1.2px solid var(--c-white);
+  box-shadow: 0 0 4px 2px #23232330;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.4rem;
+  padding: 0.5rem;
+  overflow-y: auto;
+  z-index: 10000;
+  transition: all 0.28s ease;
+}
+
+.select__options::-webkit-scrollbar {
+  width: 8px;
+}
+
+.select__options::-webkit-scrollbar-thumb {
+  background-color: #23232330;
+  border-radius: 8px;
+}
+
+.select__options::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.select__options p {
+  width: 100%;
+  text-align: left;
+  font-size: 0.84rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.28s linear;
+  color: var(--c-black);
+  text-transform: capitalize;
+  outline: none;
+}
+
+.select__options p.selected__option {
+  background-color: var(--c-black);
+  color: var(--c-white);
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+  .select__top:is(:focus-within, :focus-visible) {
+    border-color: var(--c-primaryShade);
+  }
+
+  .select__options p:not(.selected__option):is(:hover, :focus-visible) {
+    background-color: #23232330;
+    color: var(--c-black);
+  }
+}
