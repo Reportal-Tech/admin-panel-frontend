@@ -40,6 +40,6 @@ jobs:
           sudo docker pull reportal/admin-panel-frontend:latest
           sudo docker stop reportal-frontend || true
           sudo docker rm reportal-frontend || true
-          sudo docker run -d --name reportal-frontend --restart always -p 3000:3000 \
+          sudo docker run -d --name reportal-frontend --restart always -p 3005:3000 \
             -e NEXT_PUBLIC_BACKEND_API_URL=${{ secrets.NEXT_PUBLIC_BACKEND_API_URL }} \
             reportal/admin-panel-frontend:latest
