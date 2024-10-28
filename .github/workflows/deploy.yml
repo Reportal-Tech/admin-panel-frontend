@@ -1,0 +1,45 @@
+name: Build and Deploy Next.js to Docker Hub
+on:
+  pull_request:
+    branches:
+    - main
+  push:
+    branches:
+    - main
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check Out Repo
+      uses: actions/checkout@v2
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and Push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./docker/Dockerfile # Adjust path if needed
+        push: true
+        tags: reportal/admin-panel-frontend:latest # Update with your image name
+
+    - name: Verify Pushed Image
+      run: docker pull reportal/admin-panel-frontend:latest
+
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          sudo docker pull reportal/admin-panel-frontend:latest
+          sudo docker stop reportal-frontend || true
+          sudo docker rm reportal-frontend || true
+          sudo docker run -d --name reportal-frontend --restart always -p 3005:3000 \
+            -e NEXT_PUBLIC_BACKEND_API_URL=${{ secrets.NEXT_PUBLIC_BACKEND_API_URL }} \
+            reportal/admin-panel-frontend:latest
