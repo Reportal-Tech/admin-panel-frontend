@@ -30,6 +30,7 @@ jobs:
         tags: reportal/admin-panel-frontend:latest
         build-args: |
           NEXT_PUBLIC_BACKEND_API_URL=http://ec2-13-234-32-223.ap-south-1.compute.amazonaws.com:4005
+          PORT=3001
 
     - name: Verify Pushed Image
       run: docker pull reportal/admin-panel-frontend:latest
@@ -46,6 +47,7 @@ jobs:
           sudo docker rm reportal-admin || true
           sudo docker run -d --name reportal-admin \
             --restart always \
-            -p 3002:3001 \
+            -p 3002:3000 \
             -e NEXT_PUBLIC_BACKEND_API_URL=http://ec2-13-234-32-223.ap-south-1.compute.amazonaws.com:4005 \
+            -e PORT=3001 \
             reportal/admin-panel-frontend:latest
