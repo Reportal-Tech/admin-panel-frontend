@@ -19,7 +19,7 @@ import { IoClose } from 'react-icons/io5';
 import createToast from '@/utils/createToast';
 
 // Actions
-import { addApartmentBHKConfig, addNewApartment } from '@/actions/projects';
+import { addNewApartment } from '@/actions/projects';
 
 const NewAppartment = ({builderId} : {builderId: string}) => {
 
@@ -89,198 +89,191 @@ const NewAppartment = ({builderId} : {builderId: string}) => {
 
   const router = useRouter();
 
-  const [submittedProjectId, setSubmittedProjectId] = useState('');
-
   return (
-    <>
-      {pages.currentPage < 7 && <form className={styles.form} onSubmit={async (e) => {
-        e.preventDefault();
+    <form className={styles.form} onSubmit={async (e) => {
+      e.preventDefault();
 
-        const formData = new FormData();
-        formData.append('name', apartmentDetails.name ? apartmentDetails.name : '-');
-        formData.append('description', apartmentDetails.description ? apartmentDetails.description : '-');
-        formData.append('projectType', apartmentDetails.projectType ? apartmentDetails.projectType : '-');
-        formData.append('projectLaunchedDate', apartmentDetails.projectLaunchedDate ? new Date(apartmentDetails.projectLaunchedDate).toISOString() : new Date().toISOString());
-        formData.append('projectPossessionDate', apartmentDetails.projectPossessionDate ? new Date(apartmentDetails.projectPossessionDate).toISOString() : new Date().toISOString());
-        formData.append('pricePerSquareFeetRate', apartmentDetails.pricePerSquareFeetRate ? apartmentDetails.pricePerSquareFeetRate : '-');
-        formData.append('totalArea', apartmentDetails.totalArea ? apartmentDetails.totalArea : '-');
-        formData.append('latitude', apartmentDetails.latitude ? apartmentDetails.latitude : '-');
-        formData.append('longitude', apartmentDetails.longitude ? apartmentDetails.longitude : '-');
-        formData.append('landmark', apartmentDetails.landmark ? apartmentDetails.landmark : '-');
-        formData.append('projectSize', apartmentDetails.projectSize ? apartmentDetails.projectSize : '-');
-        formData.append('noOfFloors', apartmentDetails.noOfFloors ? apartmentDetails.noOfFloors : '-');
-        formData.append('noOfFlats', apartmentDetails.noOfFlats ? apartmentDetails.noOfFlats : '-');
-        formData.append('noOfTowers', apartmentDetails.noOfTowers ? apartmentDetails.noOfTowers : '-');
-        formData.append('noOfFlatsPerFloor', apartmentDetails.noOfFlatsPerFloor ? apartmentDetails.noOfFlatsPerFloor : '-');
-        formData.append('projectLocation', apartmentDetails.projectLocation ? apartmentDetails.projectLocation : '-');
-        formData.append('constructionType', apartmentDetails.constructionType ? apartmentDetails.constructionType : '-');
-        formData.append('ClubHouseSize', apartmentDetails.ClubHouseSize ? apartmentDetails.ClubHouseSize : '-');
-        formData.append('totalOpenSpace', apartmentDetails.totalOpenSpace ? apartmentDetails.totalOpenSpace : '-');
-        formData.append('videoLink', apartmentDetails.videoLink ? apartmentDetails.videoLink : '-');
-        formData.append('reraID', apartmentDetails.reraID ? apartmentDetails.reraID : '-');
-        formData.append('projectHighlightsPoints', apartmentDetails.projectHighlightsPoints ? apartmentDetails.projectHighlightsPoints : '-');
+      const formData = new FormData();
+      formData.append('name', apartmentDetails.name ? apartmentDetails.name : '-');
+      formData.append('description', apartmentDetails.description ? apartmentDetails.description : '-');
+      formData.append('projectType', apartmentDetails.projectType ? apartmentDetails.projectType : '-');
+      formData.append('projectLaunchedDate', apartmentDetails.projectLaunchedDate ? new Date(apartmentDetails.projectLaunchedDate).toISOString() : new Date().toISOString());
+      formData.append('projectPossessionDate', apartmentDetails.projectPossessionDate ? new Date(apartmentDetails.projectPossessionDate).toISOString() : new Date().toISOString());
+      formData.append('pricePerSquareFeetRate', apartmentDetails.pricePerSquareFeetRate ? apartmentDetails.pricePerSquareFeetRate : '-');
+      formData.append('totalArea', apartmentDetails.totalArea ? apartmentDetails.totalArea : '-');
+      formData.append('latitude', apartmentDetails.latitude ? apartmentDetails.latitude : '-');
+      formData.append('longitude', apartmentDetails.longitude ? apartmentDetails.longitude : '-');
+      formData.append('landmark', apartmentDetails.landmark ? apartmentDetails.landmark : '-');
+      formData.append('projectSize', apartmentDetails.projectSize ? apartmentDetails.projectSize : '-');
+      formData.append('noOfFloors', apartmentDetails.noOfFloors ? apartmentDetails.noOfFloors : '-');
+      formData.append('noOfFlats', apartmentDetails.noOfFlats ? apartmentDetails.noOfFlats : '-');
+      formData.append('noOfTowers', apartmentDetails.noOfTowers ? apartmentDetails.noOfTowers : '-');
+      formData.append('noOfFlatsPerFloor', apartmentDetails.noOfFlatsPerFloor ? apartmentDetails.noOfFlatsPerFloor : '-');
+      formData.append('projectLocation', apartmentDetails.projectLocation ? apartmentDetails.projectLocation : '-');
+      formData.append('constructionType', apartmentDetails.constructionType ? apartmentDetails.constructionType : '-');
+      formData.append('ClubHouseSize', apartmentDetails.ClubHouseSize ? apartmentDetails.ClubHouseSize : '-');
+      formData.append('totalOpenSpace', apartmentDetails.totalOpenSpace ? apartmentDetails.totalOpenSpace : '-');
+      formData.append('videoLink', apartmentDetails.videoLink ? apartmentDetails.videoLink : '-');
+      formData.append('reraID', apartmentDetails.reraID ? apartmentDetails.reraID : '-');
+      formData.append('projectHighlightsPoints', apartmentDetails.projectHighlightsPoints ? apartmentDetails.projectHighlightsPoints : '-');
 
-        formData.append('amenities', apartmentDetails.amenities ? apartmentDetails.amenities.join(', ').trim() : '-');
-        formData.append('clubHouseAmenities', apartmentDetails.clubHouseAmenities ? apartmentDetails.clubHouseAmenities.join(', ').trim() : '-');
-        formData.append('OutdoorAmenities', apartmentDetails.OutdoorAmenities ? apartmentDetails.OutdoorAmenities.join(', ').trim() : '-');
-        formData.append('nearByHighlights', apartmentDetails.nearByHighlights ? apartmentDetails.nearByHighlights.join(', ').trim() : '-');
-        
-        formData.append('bhkType', apartmentDetails.bhkType ? apartmentDetails.bhkType : '-');
-        formData.append('sizeInSqft', apartmentDetails.sizeInSqft ? apartmentDetails.sizeInSqft : '-');
-        formData.append('facing', apartmentDetails.facing ? apartmentDetails.facing : '-');
-        formData.append('basePrice', apartmentDetails.basePrice ? apartmentDetails.basePrice : '-');
+      formData.append('amenities', apartmentDetails.amenities ? apartmentDetails.amenities.join(', ').trim() : '-');
+      formData.append('clubHouseAmenities', apartmentDetails.clubHouseAmenities ? apartmentDetails.clubHouseAmenities.join(', ').trim() : '-');
+      formData.append('OutdoorAmenities', apartmentDetails.OutdoorAmenities ? apartmentDetails.OutdoorAmenities.join(', ').trim() : '-');
+      formData.append('nearByHighlights', apartmentDetails.nearByHighlights ? apartmentDetails.nearByHighlights.join(', ').trim() : '-');
+      
+      formData.append('bhkType', apartmentDetails.bhkType ? apartmentDetails.bhkType : '-');
+      formData.append('sizeInSqft', apartmentDetails.sizeInSqft ? apartmentDetails.sizeInSqft : '-');
+      formData.append('facing', apartmentDetails.facing ? apartmentDetails.facing : '-');
+      formData.append('basePrice', apartmentDetails.basePrice ? apartmentDetails.basePrice : '-');
 
-        if (apartmentDetails.unitPlanConfigFiles) {
-          apartmentDetails.unitPlanConfigFiles.forEach((file) => {
-            formData.append('unitPlanConfigFiles', file);
-          })
-        } else {
-          formData.append('unitPlanConfigFiles', '');
-        }
-
-        /* **************************************************************************************************************** */
-
-        if (apartmentDetails.siteMap) {
-          apartmentDetails.siteMap.forEach((file) => {
-            formData.append('siteMap', file);
-          })
-        } else {
-          formData.append('siteMap', '');
-        }
-
-        if (apartmentDetails.masterPlan) {
-          apartmentDetails.masterPlan.forEach((file) => {
-            formData.append('masterPlan', file);
-          })
-        } else {
-          formData.append('masterPlan', '');
-        }
-
-        if (apartmentDetails.projectHighlights) {
-          apartmentDetails.projectHighlights.forEach((file) => {
-            formData.append('projectHighlights', file);
-          })
-        } else {
-          formData.append('projectHighlights', '');
-        }
-
-        if (apartmentDetails.elevationImages) {
-          apartmentDetails.elevationImages.forEach((file) => {
-            formData.append('elevationImages', file);
-          })
-        } else {
-          formData.append('elevationImages', '');
-        }
-
-        if (apartmentDetails.amenitiesImages) {
-          apartmentDetails.amenitiesImages.forEach((file) => {
-            formData.append('amenitiesImages', file);
-          })
-        } else {
-          formData.append('amenitiesImages', '');
-        }
-
-        if (apartmentDetails.floorPlanPdf) {
-          apartmentDetails.floorPlanPdf.forEach((file) => {
-            formData.append('floorPlanPdf', file);
-          })
-        } else {
-          formData.append('floorPlanPdf', '');
-        }
-
-        if (apartmentDetails.brochurePdf) {
-          apartmentDetails.brochurePdf.forEach((file) => {
-            formData.append('brochurePdf', file);
-          })
-        } else {
-          formData.append('brochurePdf', '');
-        }
-
-        if (apartmentDetails.priceSheet) {
-          apartmentDetails.priceSheet.forEach((file) => {
-            formData.append('priceSheet', file);
-          })
-        } else {
-          formData.append('priceSheet', '');
-        }
-
-        if (apartmentDetails.reraCertificate) {
-          apartmentDetails.reraCertificate.forEach((file) => {
-            formData.append('reraCertificate', file);
-          })
-        } else {
-          formData.append('reraCertificate', '');
-        }
-
-        setResponseLoading(true);
-
-        const toastId = createToast('loading', 'Adding apartment project...');
-        const apartmentAddResponse = await addNewApartment(formData, builderId);
-
-        console.log(apartmentAddResponse);
-
-        if (apartmentAddResponse.status === 'success') {
-          createToast('success', 'Added project to selected builder.', toastId);
-          setPages({...pages, currentPage: 7 });
-          setSubmittedProjectId(apartmentAddResponse.message)
-        } else {
-          createToast('error', apartmentAddResponse.message, toastId)
-        }
-
-        setResponseLoading(false);
-
-      }}>
-
-        <div className={styles.form__head}>
-          <h2>Add <span>Appartment</span></h2>
-          <span>Page {pages.currentPage}/{pages.totalPage}</span>
-        </div>
-        
-        <div className={styles.form__main}>
-          {
-            pages.currentPage === 1 ? (
-              <Page1 apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails} changeApartmentDetails={changeApartmentDetails} />
-            ) : pages.currentPage === 2 ? (
-              <Page2 apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails} changeApartmentDetails={changeApartmentDetails} />
-            ) : pages.currentPage === 3 ? (
-              <Page3 apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails} />
-            ) : pages.currentPage === 4 ? (
-              <Page4 apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails} />
-            ) : pages.currentPage === 5 ? (
-              <Page5 apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails}  />
-            ) : pages.currentPage === 6 ? (
-              <Page6 apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails} changeApartmentDetails={changeApartmentDetails} />
-            ) : <></>
-          }
-
-        </div>
-
-        <div className={styles.page__changer}>
-          {
-            (pages.currentPage > 1 && pages.currentPage <= pages.totalPage - 1) && <button className={styles.back__changer} type='button' title='Back' aria-label='Back' onClick={() => {
-              setPages({
-                ...pages,
-                currentPage: pages.currentPage - 1
-              })
-            }}>Back</button>
-          }
-          {pages.currentPage < pages.totalPage - 1 && <button className={styles.next__changer} type="button" title="Next" aria-label="Next" onClick={() => {
-            (pages.currentPage < pages.totalPage && pages.currentPage !== pages.totalPage) && (setPages({
-              ...pages,
-              currentPage: pages.currentPage + 1
-            }))}}>Next
-          </button>}
-          {pages.currentPage === pages.totalPage - 1 && <button type="submit" className={styles.next__changer} aria-label="Submit" title="Submit">{responseLoading ? (
-            <div className={styles.basic}></div>
-          ) : 'Submit'}</button>}
-        </div>
-      </form>}
-
-      {
-        pages.currentPage === 7 && <Page7 projectId={submittedProjectId} apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails} changeApartmentDetails={changeApartmentDetails} />
+      if (apartmentDetails.unitPlanConfigFiles) {
+        apartmentDetails.unitPlanConfigFiles.forEach((file) => {
+          formData.append('unitPlanConfigFiles', file);
+        })
+      } else {
+        formData.append('unitPlanConfigFiles', '');
       }
 
-    </>
+      /* **************************************************************************************************************** */
+
+      if (apartmentDetails.siteMap) {
+        apartmentDetails.siteMap.forEach((file) => {
+          formData.append('siteMap', file);
+        })
+      } else {
+        formData.append('siteMap', '');
+      }
+
+      if (apartmentDetails.masterPlan) {
+        apartmentDetails.masterPlan.forEach((file) => {
+          formData.append('masterPlan', file);
+        })
+      } else {
+        formData.append('masterPlan', '');
+      }
+
+      if (apartmentDetails.projectHighlights) {
+        apartmentDetails.projectHighlights.forEach((file) => {
+          formData.append('projectHighlights', file);
+        })
+      } else {
+        formData.append('projectHighlights', '');
+      }
+
+      if (apartmentDetails.elevationImages) {
+        apartmentDetails.elevationImages.forEach((file) => {
+          formData.append('elevationImages', file);
+        })
+      } else {
+        formData.append('elevationImages', '');
+      }
+
+      if (apartmentDetails.amenitiesImages) {
+        apartmentDetails.amenitiesImages.forEach((file) => {
+          formData.append('amenitiesImages', file);
+        })
+      } else {
+        formData.append('amenitiesImages', '');
+      }
+
+      if (apartmentDetails.floorPlanPdf) {
+        apartmentDetails.floorPlanPdf.forEach((file) => {
+          formData.append('floorPlanPdf', file);
+        })
+      } else {
+        formData.append('floorPlanPdf', '');
+      }
+
+      if (apartmentDetails.brochurePdf) {
+        apartmentDetails.brochurePdf.forEach((file) => {
+          formData.append('brochurePdf', file);
+        })
+      } else {
+        formData.append('brochurePdf', '');
+      }
+
+      if (apartmentDetails.priceSheet) {
+        apartmentDetails.priceSheet.forEach((file) => {
+          formData.append('priceSheet', file);
+        })
+      } else {
+        formData.append('priceSheet', '');
+      }
+
+      if (apartmentDetails.reraCertificate) {
+        apartmentDetails.reraCertificate.forEach((file) => {
+          formData.append('reraCertificate', file);
+        })
+      } else {
+        formData.append('reraCertificate', '');
+      }
+
+      setResponseLoading(true);
+
+      const toastId = createToast('loading', 'Adding apartment project...');
+      const apartmentAddResponse = await addNewApartment(formData, builderId);
+
+      console.log(apartmentAddResponse);
+
+      (apartmentAddResponse.status === 'success') ? (
+        createToast('success', apartmentAddResponse.message, toastId),
+        setResponseLoading(false),
+        router.push('/dashboard/projects')
+      ) : (
+        createToast('error', apartmentAddResponse.message, toastId),
+        setResponseLoading(false)
+      )
+
+      
+
+    }}>
+
+      <div className={styles.form__head}>
+        <h2>Add <span>Appartment</span></h2>
+        <span>Page {pages.currentPage}/{pages.totalPage}</span>
+      </div>
+      
+      <div className={styles.form__main}>
+        {
+          pages.currentPage === 1 ? (
+            <Page1 apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails} changeApartmentDetails={changeApartmentDetails} />
+          ) : pages.currentPage === 2 ? (
+            <Page2 apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails} changeApartmentDetails={changeApartmentDetails} />
+          ) : pages.currentPage === 3 ? (
+            <Page3 apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails} />
+          ) : pages.currentPage === 4 ? (
+            <Page4 apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails} />
+          ) : pages.currentPage === 5 ? (
+            <Page5 apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails}  />
+          ) : pages.currentPage === 6 ? (
+            <Page6 apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails} changeApartmentDetails={changeApartmentDetails} />
+          ) : pages.currentPage === 7 ? (
+            <Page7 apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails} changeApartmentDetails={changeApartmentDetails} />
+          ) : <></>
+        }
+      </div>
+
+      <div className={styles.page__changer}>
+        {
+          pages.currentPage > 1 && <button className={styles.back__changer} type='button' title='Back' aria-label='Back' onClick={() => {
+            setPages({
+              ...pages,
+              currentPage: pages.currentPage - 1
+            })
+          }}>Back</button>
+        }
+        {pages.currentPage < pages.totalPage && <button className={styles.next__changer} type="button" title="Next" aria-label="Next" onClick={() => {
+          (pages.currentPage < pages.totalPage && pages.currentPage !== pages.totalPage) && (setPages({
+            ...pages,
+            currentPage: pages.currentPage + 1
+          }))}}>Next
+        </button>}
+        {pages.currentPage === pages.totalPage && <button type="submit" className={styles.next__changer} aria-label="Submit" title="Submit">{responseLoading ? (
+          <div className={styles.basic}></div>
+        ) : 'Submit'}</button>}
+      </div>
+    </form>
   )
 }
 
@@ -524,42 +517,13 @@ export const Page5 = ({apartmentDetails, setApartmentDetails}: {apartmentDetails
   )
 }
 
-export const Page6 = ({apartmentDetails, setApartmentDetails, changeApartmentDetails, showFile = true}: {apartmentDetails: ApartmentDetails, setApartmentDetails: React.Dispatch<React.SetStateAction<ApartmentDetails>>, changeApartmentDetails: (e: React.ChangeEvent<HTMLInputElement>) => void, showFile?: boolean}) => {
+export const Page6 = ({apartmentDetails, setApartmentDetails, changeApartmentDetails, showBHK = true}: {apartmentDetails: ApartmentDetails, setApartmentDetails: React.Dispatch<React.SetStateAction<ApartmentDetails>>, changeApartmentDetails: (e: React.ChangeEvent<HTMLInputElement>) => void, showBHK?: boolean}) => {
 
-  const [repoCertificates, setRepoCertificates] = useState<File[]>(apartmentDetails.reraCertificate);
-
-  useEffect(() => {
-
-    setApartmentDetails({...apartmentDetails, reraCertificate: repoCertificates });
-
-    // eslint-disable-next-line
-  }, [repoCertificates]);
-
-  return (
-    <>
-      <FormInput labelFor='videoLink' labelTitle='Video Link' inputType='text' inputName='videoLink' placeholder='Video Link (https only)' value={apartmentDetails.videoLink} setValue={changeApartmentDetails} />
-      <FormInput labelFor='reraID' labelTitle='RERA ID' inputType='text' inputName='reraID' placeholder='12121232' value={apartmentDetails.reraID} setValue={changeApartmentDetails} />
-      <FormInput labelFor='projectHighlightsPoints' labelTitle='Project Highlight Points' inputType='text' inputName='projectHighlightsPoints' placeholder='Project Highlight Points' value={apartmentDetails.projectHighlightsPoints} setValue={changeApartmentDetails} />
-      {showFile &&  <FileUpload labelFor='reraCertificate' labelTitle='Upload Certificates' files={repoCertificates} setFiles={setRepoCertificates} />}
-    </>
-  )
-}
-
-export const Page7 = ({projectId, apartmentDetails, setApartmentDetails, changeApartmentDetails, showBHK = true}: {projectId: string, apartmentDetails: ApartmentDetails, setApartmentDetails: React.Dispatch<React.SetStateAction<ApartmentDetails>>, changeApartmentDetails: (e: React.ChangeEvent<HTMLInputElement>) => void, showBHK?: boolean}) => {
-
-  const [bhkDetails, setBHKDetails] = useState({
-    bhkType: '',
-    sizeInSqft: '',
-    facing: '',
-    basePrice: '',
-    unitPlanConfigFiles: [] as File[]
-  })
-
-  const [repoUnitPlanConfigFiles, setRepoUnitPlanConfigFiles] = useState<File[]>(bhkDetails.unitPlanConfigFiles);
+  const [repoUnitPlanConfigFiles, setRepoUnitPlanConfigFiles] = useState<File[]>(apartmentDetails.unitPlanConfigFiles);
 
   useEffect(() => {
 
-    setBHKDetails({...bhkDetails, unitPlanConfigFiles: repoUnitPlanConfigFiles});
+    setApartmentDetails({...apartmentDetails, unitPlanConfigFiles: repoUnitPlanConfigFiles});
 
     // eslint-disable-next-line
   }, [repoUnitPlanConfigFiles]);
@@ -578,7 +542,7 @@ export const Page7 = ({projectId, apartmentDetails, setApartmentDetails, changeA
     name: string
   }>({
     id: '',
-    name: bhkDetails.bhkType
+    name: apartmentDetails.bhkType
   })
 
   const facing = [
@@ -593,95 +557,58 @@ export const Page7 = ({projectId, apartmentDetails, setApartmentDetails, changeA
     name: string
   }>({
     id: '',
-    name: bhkDetails.facing
+    name: apartmentDetails.facing
   })
 
   useEffect(() => {
 
     if (selectedBHKType.id && selectedFacing.name) {
-      setBHKDetails({...bhkDetails, bhkType: selectedBHKType.name, facing: selectedFacing.name})
+      setApartmentDetails({...apartmentDetails, bhkType: selectedBHKType.name, facing: selectedFacing.name})
     }
 
     // eslint-disable-next-line
   }, [selectedFacing, selectedBHKType]);
 
-
-
-  const [responseLoading, setResponseLoading] = useState(false);
-
   return (
     <>
       {
         showBHK ? (
-          <form className={styles.form} onSubmit={async (e) => {
-
-            e.preventDefault();
-
-            const formData = new FormData();
-            formData.append('bhkType', bhkDetails.bhkType ? bhkDetails.bhkType : '-');
-            formData.append('sizeInSqft', bhkDetails.sizeInSqft ? bhkDetails.sizeInSqft : '-');
-            formData.append('facing', bhkDetails.facing ? bhkDetails.facing : '-');
-            formData.append('basePrice', bhkDetails.basePrice ? bhkDetails.basePrice : '-');
-
-            if (bhkDetails.unitPlanConfigFiles) {
-              bhkDetails.unitPlanConfigFiles.forEach((file) => {
-                formData.append('unitPlanConfigFiles', file);
-              })
-            } else {
-              formData.append('unitPlanConfigFiles', '');
-            }
-
-            setResponseLoading(true);
-
-            const toastId = createToast('loading', 'Adding apartment project...');
-            const apartmentBHKResponse = await addApartmentBHKConfig(formData, projectId);
-            console.log(apartmentBHKResponse);
-
-            if (apartmentBHKResponse.status === 'success') {
-              createToast('success', 'BHK Config added!', toastId);
-              setBHKDetails({
-                basePrice: '',
-                bhkType: '',
-                facing: '',
-                sizeInSqft: '',
-                unitPlanConfigFiles: []
-              })
-              setRepoUnitPlanConfigFiles([]);
-              setSelectedFacing({
-                id: '',
-                name: ''
-              });
-              setselectedBHKType({
-                id: '',
-                name: ''
-              })
-            } else {
-              createToast('error', apartmentBHKResponse.message, toastId)
-            }
-
-            setResponseLoading(false);
-
-          }}>
+          <>
             <FileUpload files={repoUnitPlanConfigFiles} setFiles={setRepoUnitPlanConfigFiles} labelFor='unitPlanConfigFiles' labelTitle='BHK unit plan config' />
       
             <div className={`${styles.multi__fields}`}>
               <FormSelect options={bhkType} optionPlaceholder='BHK Type' selectedOption={selectedBHKType} setSelectedOption={setselectedBHKType} />
-              <FormInput labelFor='sizeInSqft' labelTitle='Size (sq.ft)' inputName='sizeInSqft' inputType='text' value={bhkDetails.sizeInSqft} setValue={(e) => {
-                setBHKDetails({...bhkDetails, [e.target.name]: e.target.value})
-              }} placeholder='Ex: 1450' />
-              <FormInput labelFor='basePrice' labelTitle='Base Price' inputName='basePrice' inputType='text' value={bhkDetails.basePrice} setValue={(e) => {
-                setBHKDetails({...bhkDetails, [e.target.name]: e.target.value})
-              }} placeholder='Ex: 2400000' />
+              <FormInput labelFor='sizeInSqft' labelTitle='Size (sq.ft)' inputName='sizeInSqft' inputType='text' value={apartmentDetails.sizeInSqft} setValue={changeApartmentDetails} placeholder='Ex: 1450' />
+              <FormInput labelFor='basePrice' labelTitle='Base Price' inputName='basePrice' inputType='text' value={apartmentDetails.basePrice} setValue={changeApartmentDetails} placeholder='Ex: 2400000' />
               <FormSelect options={facing} optionPlaceholder='Facing' selectedOption={selectedFacing} setSelectedOption={setSelectedFacing} />
             </div>
-
-            <button type='submit' title='Add BHK Config' disabled={responseLoading}>{responseLoading ? 'Adding...' : 'Add BHK Config'}</button>
-
-          </form>
+          </>
         ) : (
           <></>
         )
       }
+      
+      <FormInput labelFor='videoLink' labelTitle='Video Link' inputType='text' inputName='videoLink' placeholder='Video Link (https only)' value={apartmentDetails.videoLink} setValue={changeApartmentDetails} />
+    </>
+  )
+}
+
+export const Page7 = ({apartmentDetails, setApartmentDetails, changeApartmentDetails, showFile = true}: {apartmentDetails: ApartmentDetails, setApartmentDetails: React.Dispatch<React.SetStateAction<ApartmentDetails>>, changeApartmentDetails: (e: React.ChangeEvent<HTMLInputElement>) => void, showFile?: boolean}) => {
+
+  const [repoCertificates, setRepoCertificates] = useState<File[]>(apartmentDetails.reraCertificate);
+
+  useEffect(() => {
+
+    setApartmentDetails({...apartmentDetails, reraCertificate: repoCertificates });
+
+    // eslint-disable-next-line
+  }, [repoCertificates]);
+
+  return (
+    <>
+      <FormInput labelFor='reraID' labelTitle='RERA ID' inputType='text' inputName='reraID' placeholder='12121232' value={apartmentDetails.reraID} setValue={changeApartmentDetails} />
+      <FormInput labelFor='projectHighlightsPoints' labelTitle='Project Highlight Points' inputType='text' inputName='projectHighlightsPoints' placeholder='Project Highlight Points' value={apartmentDetails.projectHighlightsPoints} setValue={changeApartmentDetails} />
+      {showFile &&  <FileUpload labelFor='reraCertificate' labelTitle='Upload Certificates' files={repoCertificates} setFiles={setRepoCertificates} />}
     </>
   )
 }

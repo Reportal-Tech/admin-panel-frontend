@@ -68,7 +68,7 @@ const EditApartmentPage = ({projectDetails}: {projectDetails: FetchAdminApartmen
         currentPage: number;
         totalPage: number
     }>({
-        totalPage: 3,
+        totalPage: 4,
         currentPage: 1
     })
 
@@ -273,7 +273,9 @@ const EditApartmentPage = ({projectDetails}: {projectDetails: FetchAdminApartmen
                 ) : pages.currentPage === 2 ? (
                     <Page2 apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails} changeApartmentDetails={changeApartmentDetails} />
                 ) : pages.currentPage === 3 ? (
-                    <Page6 apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails} changeApartmentDetails={changeApartmentDetails} showFile={false} />
+                    <Page6 apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails} changeApartmentDetails={changeApartmentDetails} showBHK={false} />
+                ) : pages.currentPage === 4 ? (
+                    <Page7 apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails} changeApartmentDetails={changeApartmentDetails} showFile={false} />
                 ) : <></>
                 }
             </div>
@@ -302,11 +304,3 @@ const EditApartmentPage = ({projectDetails}: {projectDetails: FetchAdminApartmen
     )
 }
 
-
-/*
-
-: pages.currentPage === 4 ? (
-                    <Page7 apartmentDetails={apartmentDetails} setApartmentDetails={setApartmentDetails} changeApartmentDetails={changeApartmentDetails} showBHK={false} />
-                )
-
-*/

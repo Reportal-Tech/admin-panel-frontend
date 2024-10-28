@@ -236,9 +236,65 @@ export async function updateBuilderWithProject(projectType: 'plot' | 'apartment'
 
         return {
             status: 'success',
-            message: 'Added project to selected builder.'
+            message: projectId,
         }
         
+    } catch (error) {
+        return {
+            status: 'error',
+            message: 'Internal Server Issues'
+        }
+    }
+}
+
+// 5. Add BHK Configs to Apartment - Admin
+
+export async function addApartmentBHKConfig(formData: FormData, projectId: string) {
+    const authToken = await getAuthToken();
+
+    if (!authToken) {
+        console.log('Admin Not Authorized!');
+        return {
+            status: 'error',
+            message: 'Unauthorized! Please Login.'
+        }
+    }
+
+    // console.log(formData, projectId);
+
+    try {
+
+        const apartmentBHKAddResponse = await fetch(`${process.env.SERVER_HOST_URL}/api/v1/admin/addUnitPlanConfigForAdmin/${projectId}`, {
+            method: 'POST',
+            headers: {
+                "Authorization": `Bearer ${authToken}`
+            },
+            body: formData
+        });
+
+        console.log(apartmentBHKAddResponse);
+
+        const apartmentAddData = await apartmentBHKAddResponse.json();
+        console.log(apartmentAddData);
+
+        if (!apartmentBHKAddResponse.ok) {
+            if (apartmentBHKAddResponse.status === 400 && !apartmentBHKAddResponse.ok) {
+                return {
+                    status: 'error',
+                    message: apartmentAddData.error
+                }
+            }
+            return {
+                status: 'error',
+                message: 'Issues adding BHK configurations. Try again'
+            }
+        }
+        
+        return {
+            status: 'success', 
+            message: 'Added BHK Config'
+        }
+
     } catch (error) {
         return {
             status: 'error',

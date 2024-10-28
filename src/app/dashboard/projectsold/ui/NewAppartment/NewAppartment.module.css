@@ -97,7 +97,7 @@
     margin-top: 1rem;
 }
 
-.page__changer button, .key__highlights button, .form > button {
+.page__changer button, .key__highlights button {
     padding: 0.36rem 0.7rem;
     font-size: 0.9rem;
     display: flex;
@@ -111,10 +111,6 @@
     cursor: pointer;
     transition: color 0.3s ease, background-color 0.3s ease;
     outline: none;
-}
-
-.form > button {
-    margin-top: 1.2rem;
 }
 
 .page__changer button.back__changer {
@@ -212,7 +208,7 @@
   /* CSS Loader */
 
 @media (hover:hover) and (pointer: fine) {
-    .page__changer button:not(:disabled):is(:hover, :focus-visible), .key__highlights button:is(:hover, :focus-visible), .form > button:is(:hover, :focus-visible) {
+    .page__changer button:not(:disabled):is(:hover, :focus-visible), .key__highlights button:is(:hover, :focus-visible) {
         background-color: var(--c-primaryShade);
         color: var(--c-white);
         border-color: var(--c-primaryShade);
