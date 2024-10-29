@@ -27,7 +27,7 @@ jobs:
         context: .
         file: ./docker/Dockerfile
         push: true
-        tags: reportal/admin-panel-frontend:latest
+        tags: reportal/admin-frontend:latest
         build-args: |
           NEXT_PUBLIC_BACKEND_API_URL=http://ec2-13-234-32-223.ap-south-1.compute.amazonaws.com:4005
 
@@ -42,11 +42,11 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         script: |
           sudo docker image prune -f
-          sudo docker pull reportal/admin-panel-frontend:latest
+          sudo docker pull reportal/admin-frontend:latest
           sudo docker stop reportal-admin || true
           sudo docker rm reportal-admin || true
           sudo docker run -d --name reportal-admin \
             --restart always \
             -p 8008:3000 \
             -e NEXT_PUBLIC_BACKEND_API_URL=http://ec2-13-234-32-223.ap-south-1.compute.amazonaws.com:4005 \
-            reportal/admin-panel-frontend:latest
+            reportal/admin-frontend:latest
