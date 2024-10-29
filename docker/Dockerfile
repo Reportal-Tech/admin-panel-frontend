@@ -1,41 +1,23 @@
-FROM node:18-alpine AS base
+# Base image
+FROM node:18-alpine
 
-FROM base AS deps
-
-RUN apk add --no-cache libc6-compat
+# Create app directory
 WORKDIR /app
 
-COPY package.json ./
+# Copy package files
+COPY package*.json ./
 
-RUN npm update && npm install
+# Install dependencies
+RUN npm install
 
-# If you want yarn update and  install uncomment the bellow
-
-# RUN yarn install &&  yarn upgrade
-
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+# Copy source files
 COPY . .
 
+# Build the Next.js application
 RUN npm run build
 
-FROM base AS runner
-WORKDIR /app
-
-ENV NODE_ENV production
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-COPY --from=builder /app/public ./public
-
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
-
-USER nextjs
-
+# Expose the port the app runs on
 EXPOSE 3000
 
-ENV PORT 3000
-
-CMD ["npm", "run" , "dev"]
+# Start the application
+CMD ["npm", "start"]
