@@ -159,6 +159,7 @@ export async function addNewApartment(formData: FormData, builderId: string) {
     const projectId = apartmentAddData.project.projectId;
 
     return updateBuilderWithProject('apartment', builderId, projectId);
+
   } catch (error) {
     console.log(error);
     return {
@@ -209,44 +210,14 @@ export async function updateBuilderWithProject(
 
   console.log(projectUpdate);
 
-<<<<<<< HEAD
-        const updateResponse = await fetch(`${process.env.SERVER_HOST_URL}/api/v1/admin/assignProjectToBuilder`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": 'application/json',
-                "Authorization": `Bearer ${authToken}`
-            },
-            body: JSON.stringify(projectUpdate)
-        });
-
-        // console.log(await updateResponse.json())
-
-        if (!updateResponse.ok) {
-            return {
-                status: 'error',
-                message: 'Issue with updating builder project.'
-            }
-        }
-
-        return {
-            status: 'success',
-            message: projectId,
-        }
-        
-    } catch (error) {
-        return {
-            status: 'error',
-            message: 'Internal Server Issues'
-        }
-=======
-  try {
-    if (!projectType || !projectId || !builderId) {
-      return {
-        status: 'error',
-        message: 'Invalid selection',
-      };
->>>>>>> a406762399a7d0799029427cab3a11402b288189
+  if (!projectType || !projectId || !builderId) {
+    return {
+      status: 'error',
+      message: 'Invalid selection',
     }
+  };
+
+  try {
 
     const updateResponse = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/v1/admin/assignProjectToBuilder`,
@@ -269,10 +240,14 @@ export async function updateBuilderWithProject(
       };
     }
 
-    return {
+    return  projectType === 'apartment' ? {
+      status: 'success',
+      message: projectId
+    } : {
       status: 'success',
       message: 'Added project to selected builder.',
     };
+
   } catch (error) {
     return {
       status: 'error',
