@@ -14,7 +14,7 @@ import { MdEngineering, MdOnlinePrediction } from 'react-icons/md';
 import { BsFillHousesFill } from 'react-icons/bs';
 
 // Actions
-import { adminLogout } from '@/actions/auth';
+// import { adminLogout } from '@/actions/auth';
 
 // Utils
 import createToast from '@/utils/createToast';
@@ -33,11 +33,11 @@ const Sidebar = () => {
         <div className={styles.sidebar__logo}>
           <h2><span>Re</span>Portal</h2>
           <button type='button' title={isLogginOut ? 'Logging Out...' : 'Logout'} onClick={async () => {
-            setIsLoggingOut(true);
-            const toastId = createToast('loading', 'Logging out...');
-            adminLogout();
-            createToast('success', 'Logged out successfully!', toastId);
-            setIsLoggingOut(false);
+            // setIsLoggingOut(true);
+            // const toastId = createToast('loading', 'Logging out...');
+            // adminLogout();
+            // createToast('success', 'Logged out successfully!', toastId);
+            // setIsLoggingOut(false);
           }} disabled={isLogginOut} aria-disabled={isLogginOut}>{
             isLogginOut ? <span className={styles.basic}></span> : <LuLogOut fontSize={20} fontWeight={600} />
           }</button>
