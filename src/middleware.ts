@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from "next/server";
 
 // Utils
-import createToast from './utils/createToast';
 import { getAuthToken } from './utils/getAuthToken';
 
 export default async function middleware(request: NextRequest) {
@@ -11,7 +10,6 @@ export default async function middleware(request: NextRequest) {
 
     if (urlPath.startsWith('/dashboard')) {
         if (authToken === undefined || !authToken) {
-            createToast('error', 'Login expired!');
             return NextResponse.redirect(new URL('/', request.url))
         }
     }
