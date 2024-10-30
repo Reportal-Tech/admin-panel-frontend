@@ -103,7 +103,7 @@ const NewAppartment = ({builderId} : {builderId: string}) => {
         formData.append('projectLaunchedDate', apartmentDetails.projectLaunchedDate ? new Date(apartmentDetails.projectLaunchedDate).toISOString() : new Date().toISOString());
         formData.append('projectPossessionDate', apartmentDetails.projectPossessionDate ? new Date(apartmentDetails.projectPossessionDate).toISOString() : new Date().toISOString());
         formData.append('pricePerSquareFeetRate', apartmentDetails.pricePerSquareFeetRate ? apartmentDetails.pricePerSquareFeetRate : '-');
-        formData.append('totalArea', apartmentDetails.totalArea ? apartmentDetails.totalArea : '-');
+        // formData.append('totalArea', apartmentDetails.totalArea ? apartmentDetails.totalArea : '-');
         formData.append('latitude', apartmentDetails.latitude ? apartmentDetails.latitude : '-');
         formData.append('longitude', apartmentDetails.longitude ? apartmentDetails.longitude : '-');
         formData.append('landmark', apartmentDetails.landmark ? apartmentDetails.landmark : '-');
